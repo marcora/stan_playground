@@ -1,0 +1,171 @@
+---
+title: "stan_playground"
+---
+
+## Setup environment
+
+```{r}
+#| output: false
+library(tidyverse)
+library(easystats)
+library(ggformula)
+library(cmdstanr)
+library(posterior)
+library(bayesplot)
+
+options(mc.cores = parallel::detectCores())
+
+register_knitr_engine(override = TRUE)
+
+theme_set(theme_bw())
+
+set.seed(666)
+```
+
+
+## Coin flip
+
+$$
+p(h \mid \theta) \propto \theta^h (1 - \theta)^{1-h}
+$$
+
+$$
+\begin{align}
+\theta & \sim \text{Unif}(0, 1) \\
+h & \sim \text{Bern}(\theta) \\
+\end{align}
+$$
+
+```{dot}
+digraph {
+  rankdir=TB;
+  node [shape=circle];
+
+  theta [label="θ", style=filled, fillcolor=gray]
+  h [label="h"]
+
+  theta -> h;
+}
+```
+
+### Steps of (Bayesian) modeling
+
+-   **A data story**: Think about how the data might arise
+
+-   **Update**: Educate the model by feeding it with data
+
+-   **Evaluate**: Compare model with reality; revise if necessary
+
+### Bernoulli model
+
+```{stan}
+#| output.var: coinflip
+#| cache: true
+data {
+  int<lower=0> N;
+  array[N] int<lower=0, upper=1> y;
+}
+
+parameters {
+  real<lower=0,upper=1> theta;
+}
+
+model {
+  y ~ bernoulli(theta);
+}
+```
+
+```{r}
+# sim data
+N <- 100
+y <- rbinom(N, 1, 0.8)
+
+# prep data for Stan
+dat <- list(
+  N = N,
+  y = y
+)
+
+# compile & fit the model
+fit <- coinflip$sample(dat)
+
+# Print results
+fit$summary()
+```
+
+```{r}
+# use a formula to summarize arbitrary functions, e.g. Pr(theta <= 0.5)
+fit$summary("theta", pr_lt_half = ~ mean(. <= 0.5))
+```
+
+```{r}
+draws <- fit$draws()
+
+str(draws)
+```
+
+```{r}
+mcmc_hist(fit$draws("theta"))
+```
+
+```{r}
+fit$save_object(file = "fit.RDS")
+```
+
+```{r}
+fit <- readRDS("fit.RDS")
+```
+
+```{r}
+mcmc_hist(fit$draws("theta"))
+```
+
+
+## Simple linear regression model (t-test)
+
+```{stan}
+#| output.var: ttest
+#| cache: true
+data {
+  int<lower=1> N;  // Number of observations
+  vector[N] y;     // Outcome variable
+  vector[N] x;     // Binary predictor (0 or 1)
+}
+
+parameters {
+  real alpha;      // Intercept (mean of group where x = 0)
+  real beta;       // Effect of x (difference between groups)
+  real<lower=0> sigma;  // Standard deviation
+}
+
+model {
+  // Likelihood: Normal regression model
+  y ~ normal(alpha + beta * x, sigma);
+  
+  // Priors
+  alpha ~ normal(0, 10);  // Prior for intercept
+  beta ~ normal(0, 10);   // Prior for effect of x
+  sigma ~ normal(0, 10);  // Prior for standard deviation
+}
+```
+
+```{r}
+# sim data
+N <- 100
+x <- rbinom(N, 1, 0.5)  # Binary predictor (0 or 1)
+y <- 3 + 2 * x + rnorm(N, 0, 1)  # y = 3 + 2*x + noise
+
+# prep data for Stan
+dat <- list(
+  N = N,
+  y = y,
+  x = x
+)
+
+# compile & fit the model
+fit <- ttest$sample(dat)
+
+# Print results
+fit$summary()
+```
+
