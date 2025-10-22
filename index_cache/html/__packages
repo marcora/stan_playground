@@ -20,6 +20,7 @@ parameters
 report
 see
 scales
+ggiraph
 ggridges
 ggformula
 cmdstanr
