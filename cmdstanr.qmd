@@ -1,5 +1,9 @@
 ---
 title: "stan_playground"
+format:
+  html:
+    df-print: kable
+    toc: true
 ---
 
 ## Setup environment
@@ -15,7 +19,7 @@ library(bayesplot)
 
 options(mc.cores = parallel::detectCores())
 
-register_knitr_engine(override = FALSE)
+register_knitr_engine(override = TRUE)
 
 theme_set(theme_bw())
 
@@ -57,9 +61,8 @@ digraph {
 
 ### Bernoulli model
 
-```{cmdstan}
+```{stan}
 #| output.var: coinflip
-#| cache: true
 data {
   int<lower=0> N;
   array[N] int<lower=0, upper=1> y;
@@ -92,38 +95,10 @@ fit <- coinflip$sample(dat)
 fit$summary()
 ```
 
-```{r}
-# use a formula to summarize arbitrary functions, e.g. Pr(theta <= 0.5)
-fit$summary("theta", pr_lt_half = ~ mean(. <= 0.5))
-```
-
-```{r}
-draws <- fit$draws()
-
-str(draws)
-```
-
-```{r}
-mcmc_hist(fit$draws("theta"))
-```
-
-```{r}
-fit$save_object(file = "fit.RDS")
-```
-
-```{r}
-fit <- readRDS("fit.RDS")
-```
-
-```{r}
-mcmc_hist(fit$draws("theta"))
-```
-
 ## Simple linear regression model (t-test)
 
-```{cmdstan}
+```{stan}
 #| output.var: ttest
-#| cache: true
 data {
   int<lower=1> N;  // Number of observations
   vector[N] y;     // Outcome variable
