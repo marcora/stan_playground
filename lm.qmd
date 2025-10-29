@@ -3,16 +3,16 @@ title: "lm"
 format: html
 ---
 
+## Setup environment
+
 ```{r}
 #| output: false
 library(tidyverse)
 library(easystats)
 library(ggformula)
-library(simDAG)
-library(cmdstanr)
 library(posterior)
 library(bayesplot)
-
+library(cmdstanr)
 
 options(mc.cores = parallel::detectCores())
 register_knitr_engine(override = TRUE)
@@ -20,7 +20,21 @@ theme_set(theme_bw())
 set.seed(666)
 ```
 
-## Scientific/generative model
+## Scientific model
+
+```{dot}
+digraph {
+  rankdir=TB;
+  node [shape=circle];
+  U_X [label="U_X"]
+  U_Y [label="U_Y"]
+  U_X -> X;
+  U_Y -> Y;
+  X -> Y;
+}
+```
+
+## Statistical model
 
 We are interested in the relationship between a continuous outcome variable $Y$ and a continuous predictor variable $X$. We assume that $Y$ is linearly related to $X$ with some normally distributed error term.
 
@@ -39,28 +53,28 @@ Where:
 -   $\beta_1$ is the slope of the linear relationship.
 -   $\sigma_Y$ is the standard deviation of the error term $\epsilon$.
 
-## Scientific and statistical model
 
 ```{dot}
 digraph {
   rankdir=TB;
   node [shape=circle];
-  mu_X [label="μ_X", style=filled, fillcolor=gray]
-  sigma_X [label="σ_X", style=filled, fillcolor=gray]
-  beta_0 [label="β_0", style=filled, fillcolor=gray
-]
-  beta_1 [label="β_1", style=filled, fillcolor=gray]
-  sigma_Y [label="σ_Y", style=filled, fillcolor=gray]
-  X [label="X"]
-  epsilon [label="ε"]
-  Y [label="Y"]
+  
+  mu_X [label="μ_X", shape=square]
+  sigma_X [label="σ_X", shape=square]
+  beta_0 [label="β_0", shape=square]
+  beta_1 [label="β_1", shape=square]
+  sigma_Y [label="σ_Y", shape=square]
+  X [label="X", style=filled]
+  Y [label="Y", style=filled]
+  e [label="ε"]
+  
   mu_X -> X;
   sigma_X -> X;
   beta_0 -> Y;
   beta_1 -> Y;
   X -> Y;
-  epsilon -> Y;
-  sigma_Y -> epsilon;
+  e -> Y;
+  sigma_Y -> e;
 }
 ```
 
@@ -144,4 +158,10 @@ gf_point(Y ~ X, data = data, alpha = 0.3) %>%
   labs(title = "Scatter plot of Y vs X with regression line",
        x = "Predictor (X)",
        y = "Outcome (Y)")
+```
+
+## Print environment
+
+```{r}
+sessioninfo::session_info()
 ```

@@ -128,23 +128,84 @@ window.Quarto = {
 </header>
 
 
+<section id="setup-environment" class="level2">
+<h2 class="anchored" data-anchor-id="setup-environment">Setup environment</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggformula)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(simDAG)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cmdstanr)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(posterior)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bayesplot)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">mc.cores =</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>())</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">register_knitr_engine</span>(<span class="at">override =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">666</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(posterior)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bayesplot)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cmdstanr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">mc.cores =</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>())</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">register_knitr_engine</span>(<span class="at">override =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">666</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="scientificgenerative-model" class="level2">
-<h2 class="anchored" data-anchor-id="scientificgenerative-model">Scientific/generative model</h2>
+</section>
+<section id="scientific-model" class="level2">
+<h2 class="anchored" data-anchor-id="scientific-model">Scientific model</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="672" height="480" viewbox="0.00 0.00 133.63 235.27" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 231.27)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-231.27 129.63,-231.27 129.63,4 -4,4"></polygon>
+<!-- U_X -->
+<g id="node1" class="node">
+<title>U_X</title>
+<ellipse fill="none" stroke="black" cx="29.81" cy="-197.46" rx="29.63" ry="29.63"></ellipse>
+<text text-anchor="middle" x="29.81" y="-193.26" font-family="Times,serif" font-size="14.00">U_X</text>
+</g>
+<!-- X -->
+<g id="node3" class="node">
+<title>X</title>
+<ellipse fill="none" stroke="black" cx="29.81" cy="-101.83" rx="18.02" ry="18.02"></ellipse>
+<text text-anchor="middle" x="29.81" y="-97.63" font-family="Times,serif" font-size="14.00">X</text>
+</g>
+<!-- U_X&#45;&gt;X -->
+<g id="edge1" class="edge">
+<title>U_X-&gt;X</title>
+<path fill="none" stroke="black" d="M29.81,-167.6C29.81,-155.68 29.81,-141.91 29.81,-130.15"></path>
+<polygon fill="black" stroke="black" points="33.31,-130.02 29.81,-120.02 26.31,-130.02 33.31,-130.02"></polygon>
+</g>
+<!-- U_Y -->
+<g id="node2" class="node">
+<title>U_Y</title>
+<ellipse fill="none" stroke="black" cx="95.81" cy="-101.83" rx="29.63" ry="29.63"></ellipse>
+<text text-anchor="middle" x="95.81" y="-97.63" font-family="Times,serif" font-size="14.00">U_Y</text>
+</g>
+<!-- Y -->
+<g id="node4" class="node">
+<title>Y</title>
+<ellipse fill="none" stroke="black" cx="62.81" cy="-18.01" rx="18.02" ry="18.02"></ellipse>
+<text text-anchor="middle" x="62.81" y="-13.81" font-family="Times,serif" font-size="14.00">Y</text>
+</g>
+<!-- U_Y&#45;&gt;Y -->
+<g id="edge2" class="edge">
+<title>U_Y-&gt;Y</title>
+<path fill="none" stroke="black" d="M85.01,-74.04C81.2,-64.59 76.93,-54 73.16,-44.65"></path>
+<polygon fill="black" stroke="black" points="76.29,-43.07 69.31,-35.11 69.8,-45.69 76.29,-43.07"></polygon>
+</g>
+<!-- X&#45;&gt;Y -->
+<g id="edge3" class="edge">
+<title>X-&gt;Y</title>
+<path fill="none" stroke="black" d="M36.33,-84.67C40.97,-73.16 47.3,-57.48 52.61,-44.32"></path>
+<polygon fill="black" stroke="black" points="55.92,-45.45 56.42,-34.86 49.43,-42.83 55.92,-45.45"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="statistical-model" class="level2">
+<h2 class="anchored" data-anchor-id="statistical-model">Statistical model</h2>
 <p>We are interested in the relationship between a continuous outcome variable <span class="math inline">\(Y\)</span> and a continuous predictor variable <span class="math inline">\(X\)</span>. We assume that <span class="math inline">\(Y\)</span> is linearly related to <span class="math inline">\(X\)</span> with some normally distributed error term.</p>
 <p><span class="math display">\[
 \begin{align}
@@ -160,106 +221,103 @@ Y &amp; = \beta_0 + \beta_1 X + \epsilon \\
 <li><span class="math inline">\(\beta_1\)</span> is the slope of the linear relationship.</li>
 <li><span class="math inline">\(\sigma_Y\)</span> is the standard deviation of the error term <span class="math inline">\(\epsilon\)</span>.</li>
 </ul>
-</section>
-<section id="scientific-and-statistical-model" class="level2">
-<h2 class="anchored" data-anchor-id="scientific-and-statistical-model">Scientific and statistical model</h2>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<svg width="672" height="480" viewbox="0.00 0.00 292.33 222.40" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 218.4)">
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-218.4 288.33,-218.4 288.33,4 -4,4"></polygon>
+<svg width="672" height="480" viewbox="0.00 0.00 242.11 193.13" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 189.13)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-189.13 238.11,-189.13 238.11,4 -4,4"></polygon>
 <!-- mu_X -->
 <g id="node1" class="node">
 <title>mu_X</title>
-<ellipse fill="gray" stroke="black" cx="27.67" cy="-186.73" rx="27.84" ry="27.84"></ellipse>
-<text text-anchor="middle" x="27.67" y="-182.53" font-family="Times,serif" font-size="14.00">μ_X</text>
+<polygon fill="none" stroke="black" points="40.17,-185.19 -0.06,-185.19 -0.06,-144.97 40.17,-144.97 40.17,-185.19"></polygon>
+<text text-anchor="middle" x="20.06" y="-160.88" font-family="Times,serif" font-size="14.00">μ_X</text>
 </g>
 <!-- X -->
 <g id="node6" class="node">
 <title>X</title>
-<ellipse fill="none" stroke="black" cx="63.67" cy="-97.54" rx="18.02" ry="18.02"></ellipse>
-<text text-anchor="middle" x="63.67" y="-93.34" font-family="Times,serif" font-size="14.00">X</text>
+<ellipse fill="lightgrey" stroke="black" cx="49.06" cy="-90.52" rx="18.02" ry="18.02"></ellipse>
+<text text-anchor="middle" x="49.06" y="-86.32" font-family="Times,serif" font-size="14.00">X</text>
 </g>
 <!-- mu_X&#45;&gt;X -->
 <g id="edge1" class="edge">
 <title>mu_X-&gt;X</title>
-<path fill="none" stroke="black" d="M37.89,-160.98C42.65,-149.45 48.3,-135.75 53.1,-124.12"></path>
-<polygon fill="black" stroke="black" points="56.48,-125.13 57.06,-114.55 50.01,-122.45 56.48,-125.13"></polygon>
+<path fill="none" stroke="black" d="M27.67,-145.01C31.08,-136.5 35.14,-126.35 38.8,-117.18"></path>
+<polygon fill="black" stroke="black" points="42.11,-118.34 42.57,-107.75 35.61,-115.74 42.11,-118.34"></polygon>
 </g>
 <!-- sigma_X -->
 <g id="node2" class="node">
 <title>sigma_X</title>
-<ellipse fill="gray" stroke="black" cx="100.67" cy="-186.73" rx="27.84" ry="27.84"></ellipse>
-<text text-anchor="middle" x="100.67" y="-182.53" font-family="Times,serif" font-size="14.00">σ_X</text>
+<polygon fill="none" stroke="black" points="98.17,-185.19 57.94,-185.19 57.94,-144.97 98.17,-144.97 98.17,-185.19"></polygon>
+<text text-anchor="middle" x="78.06" y="-160.88" font-family="Times,serif" font-size="14.00">σ_X</text>
 </g>
 <!-- sigma_X&#45;&gt;X -->
 <g id="edge2" class="edge">
 <title>sigma_X-&gt;X</title>
-<path fill="none" stroke="black" d="M90.16,-160.98C85.19,-149.26 79.26,-135.29 74.27,-123.54"></path>
-<polygon fill="black" stroke="black" points="77.48,-122.12 70.35,-114.28 71.03,-124.86 77.48,-122.12"></polygon>
+<path fill="none" stroke="black" d="M70.44,-145.01C67.03,-136.5 62.98,-126.35 59.31,-117.18"></path>
+<polygon fill="black" stroke="black" points="62.5,-115.74 55.54,-107.75 56,-118.34 62.5,-115.74"></polygon>
 </g>
 <!-- beta_0 -->
 <g id="node3" class="node">
 <title>beta_0</title>
-<ellipse fill="gray" stroke="black" cx="125.67" cy="-97.54" rx="25.54" ry="25.54"></ellipse>
-<text text-anchor="middle" x="125.67" y="-93.34" font-family="Times,serif" font-size="14.00">β_0</text>
+<polygon fill="none" stroke="black" points="122.56,-109.02 85.56,-109.02 85.56,-72.02 122.56,-72.02 122.56,-109.02"></polygon>
+<text text-anchor="middle" x="104.06" y="-86.32" font-family="Times,serif" font-size="14.00">β_0</text>
 </g>
 <!-- Y -->
-<g id="node8" class="node">
+<g id="node7" class="node">
 <title>Y</title>
-<ellipse fill="none" stroke="black" cx="159.67" cy="-18.01" rx="18.02" ry="18.02"></ellipse>
-<text text-anchor="middle" x="159.67" y="-13.81" font-family="Times,serif" font-size="14.00">Y</text>
+<ellipse fill="lightgrey" stroke="black" cx="131.06" cy="-18.01" rx="18.02" ry="18.02"></ellipse>
+<text text-anchor="middle" x="131.06" y="-13.81" font-family="Times,serif" font-size="14.00">Y</text>
 </g>
 <!-- beta_0&#45;&gt;Y -->
 <g id="edge3" class="edge">
 <title>beta_0-&gt;Y</title>
-<path fill="none" stroke="black" d="M135.68,-73.7C139.76,-64.42 144.47,-53.66 148.64,-44.16"></path>
-<polygon fill="black" stroke="black" points="151.92,-45.38 152.74,-34.82 145.51,-42.57 151.92,-45.38"></polygon>
+<path fill="none" stroke="black" d="M110.87,-71.73C114,-63.55 117.78,-53.69 121.21,-44.72"></path>
+<polygon fill="black" stroke="black" points="124.58,-45.7 124.89,-35.11 118.05,-43.2 124.58,-45.7"></polygon>
 </g>
 <!-- beta_1 -->
 <g id="node4" class="node">
 <title>beta_1</title>
-<ellipse fill="gray" stroke="black" cx="194.67" cy="-97.54" rx="25.54" ry="25.54"></ellipse>
-<text text-anchor="middle" x="194.67" y="-93.34" font-family="Times,serif" font-size="14.00">β_1</text>
+<polygon fill="none" stroke="black" points="177.56,-109.02 140.56,-109.02 140.56,-72.02 177.56,-72.02 177.56,-109.02"></polygon>
+<text text-anchor="middle" x="159.06" y="-86.32" font-family="Times,serif" font-size="14.00">β_1</text>
 </g>
 <!-- beta_1&#45;&gt;Y -->
 <g id="edge4" class="edge">
 <title>beta_1-&gt;Y</title>
-<path fill="none" stroke="black" d="M184.36,-73.7C180.17,-64.42 175.31,-53.66 171.02,-44.16"></path>
-<polygon fill="black" stroke="black" points="174.11,-42.49 166.8,-34.82 167.73,-45.37 174.11,-42.49"></polygon>
+<path fill="none" stroke="black" d="M151.99,-71.73C148.71,-63.46 144.74,-53.48 141.15,-44.43"></path>
+<polygon fill="black" stroke="black" points="144.39,-43.11 137.45,-35.11 137.89,-45.7 144.39,-43.11"></polygon>
 </g>
 <!-- sigma_Y -->
 <g id="node5" class="node">
 <title>sigma_Y</title>
-<ellipse fill="gray" stroke="black" cx="256.67" cy="-186.73" rx="27.84" ry="27.84"></ellipse>
-<text text-anchor="middle" x="256.67" y="-182.53" font-family="Times,serif" font-size="14.00">σ_Y</text>
+<polygon fill="none" stroke="black" points="234.17,-185.19 193.94,-185.19 193.94,-144.97 234.17,-144.97 234.17,-185.19"></polygon>
+<text text-anchor="middle" x="214.06" y="-160.88" font-family="Times,serif" font-size="14.00">σ_Y</text>
 </g>
-<!-- epsilon -->
-<g id="node7" class="node">
-<title>epsilon</title>
-<ellipse fill="none" stroke="black" cx="256.67" cy="-97.54" rx="18" ry="18"></ellipse>
-<text text-anchor="middle" x="256.67" y="-93.34" font-family="Times,serif" font-size="14.00">ε</text>
+<!-- e -->
+<g id="node8" class="node">
+<title>e</title>
+<ellipse fill="none" stroke="black" cx="214.06" cy="-90.52" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="214.06" y="-86.32" font-family="Times,serif" font-size="14.00">ε</text>
 </g>
-<!-- sigma_Y&#45;&gt;epsilon -->
+<!-- sigma_Y&#45;&gt;e -->
 <g id="edge7" class="edge">
-<title>sigma_Y-&gt;epsilon</title>
-<path fill="none" stroke="black" d="M256.67,-158.62C256.67,-148.23 256.67,-136.38 256.67,-125.96"></path>
-<polygon fill="black" stroke="black" points="260.17,-125.75 256.67,-115.75 253.17,-125.75 260.17,-125.75"></polygon>
+<title>sigma_Y-&gt;e</title>
+<path fill="none" stroke="black" d="M214.06,-145.01C214.06,-137.01 214.06,-127.56 214.06,-118.84"></path>
+<polygon fill="black" stroke="black" points="217.56,-118.72 214.06,-108.72 210.56,-118.72 217.56,-118.72"></polygon>
 </g>
 <!-- X&#45;&gt;Y -->
 <g id="edge5" class="edge">
 <title>X-&gt;Y</title>
-<path fill="none" stroke="black" d="M76.39,-84.6C80.83,-80.53 85.91,-76 90.67,-72.02 105.79,-59.38 123.41,-45.86 137.06,-35.64"></path>
-<polygon fill="black" stroke="black" points="139.46,-38.22 145.39,-29.44 135.28,-32.6 139.46,-38.22"></polygon>
+<path fill="none" stroke="black" d="M62.23,-78.19C75.06,-67.16 94.79,-50.2 109.84,-37.26"></path>
+<polygon fill="black" stroke="black" points="112.34,-39.72 117.64,-30.55 107.78,-34.41 112.34,-39.72"></polygon>
 </g>
-<!-- epsilon&#45;&gt;Y -->
+<!-- e&#45;&gt;Y -->
 <g id="edge6" class="edge">
-<title>epsilon-&gt;Y</title>
-<path fill="none" stroke="black" d="M243.97,-84.58C239.52,-80.51 234.44,-75.98 229.67,-72.02 214.27,-59.24 196.26,-45.63 182.37,-35.4"></path>
-<polygon fill="black" stroke="black" points="184.04,-32.29 173.9,-29.21 179.9,-37.94 184.04,-32.29"></polygon>
+<title>e-&gt;Y</title>
+<path fill="none" stroke="black" d="M200.72,-78.19C187.65,-67.09 167.53,-49.99 152.26,-37.03"></path>
+<polygon fill="black" stroke="black" points="154.24,-34.12 144.36,-30.31 149.71,-39.45 154.24,-34.12"></polygon>
 </g>
 </g>
 </svg>
@@ -347,7 +405,6 @@ Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup)
 Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
 Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
 Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
 Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 4 Iteration:  100 / 2000 [  5%]  (Warmup) 
 Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
@@ -374,6 +431,7 @@ Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling)
 Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
 Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
 Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
 Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
 Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
 Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
@@ -389,6 +447,7 @@ Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling)
 Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
 Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
 Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
 Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
 Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
 Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
@@ -405,7 +464,6 @@ Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling)
 Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
 Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
 Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
 Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
 Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
 Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
@@ -455,7 +513,7 @@ Total execution time: 0.4 seconds.</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="lm_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="lm_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -468,9 +526,133 @@ Total execution time: 0.4 seconds.</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="lm_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="lm_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
+</div>
+</div>
+</section>
+<section id="print-environment" class="level2">
+<h2 class="anchored" data-anchor-id="print-environment">Print environment</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sessioninfo<span class="sc">::</span><span class="fu">session_info</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>─ Session info ───────────────────────────────────────────────────────────────
+ setting  value
+ version  R version 4.5.1 (2025-06-13)
+ os       macOS Sequoia 15.6.1
+ system   aarch64, darwin20
+ ui       X11
+ language (EN)
+ collate  en_US.UTF-8
+ ctype    en_US.UTF-8
+ tz       America/New_York
+ date     2025-10-28
+ pandoc   3.6.3 @ /Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools/aarch64/ (via rmarkdown)
+ quarto   1.8.25 @ /usr/local/bin/quarto
+
+─ Packages ───────────────────────────────────────────────────────────────────
+ package        * version    date (UTC) lib source
+ abind            1.4-8      2024-09-12 [1] CRAN (R 4.4.1)
+ backports        1.5.0      2024-05-23 [1] CRAN (R 4.4.0)
+ bayesplot      * 1.14.0     2025-08-31 [1] CRAN (R 4.5.0)
+ bayestestR     * 0.17.0     2025-08-29 [1] CRAN (R 4.5.0)
+ checkmate        2.3.3      2025-08-18 [1] CRAN (R 4.5.0)
+ cli              3.6.5      2025-04-23 [1] CRAN (R 4.5.0)
+ cmdstanr       * 0.9.0.9000 2025-10-19 [1] Github (stan-dev/cmdstanr@edccf2d)
+ coda             0.19-4.1   2024-01-31 [1] CRAN (R 4.5.0)
+ codetools        0.2-20     2024-03-31 [2] CRAN (R 4.5.1)
+ coro             1.1.0      2024-11-05 [1] CRAN (R 4.4.1)
+ correlation    * 0.8.8      2025-07-08 [1] CRAN (R 4.5.0)
+ data.table       1.17.8     2025-07-10 [1] CRAN (R 4.5.0)
+ datawizard     * 1.2.0      2025-07-17 [1] CRAN (R 4.5.0)
+ digest           0.6.37     2024-08-19 [1] CRAN (R 4.4.1)
+ distributional   0.5.0      2024-09-17 [1] CRAN (R 4.4.1)
+ dplyr          * 1.1.4      2023-11-17 [1] CRAN (R 4.4.0)
+ easystats      * 0.7.5      2025-07-11 [1] CRAN (R 4.5.0)
+ effectsize     * 1.0.1      2025-05-27 [1] CRAN (R 4.5.0)
+ ellmer           0.3.2      2025-09-03 [1] CRAN (R 4.5.0)
+ emmeans          1.11.2-8   2025-08-27 [1] CRAN (R 4.5.0)
+ estimability     1.5.1      2024-05-12 [1] CRAN (R 4.4.0)
+ evaluate         1.0.5      2025-08-27 [1] CRAN (R 4.5.0)
+ farver           2.1.2      2024-05-13 [1] CRAN (R 4.4.0)
+ fastmap          1.2.0      2024-05-15 [1] CRAN (R 4.4.0)
+ forcats        * 1.0.1      2025-09-25 [1] CRAN (R 4.5.0)
+ generics         0.1.4      2025-05-09 [1] CRAN (R 4.5.0)
+ ggformula      * 0.12.2     2025-07-31 [1] CRAN (R 4.5.0)
+ ggplot2        * 4.0.0      2025-09-11 [1] CRAN (R 4.5.0)
+ ggridges       * 0.5.7      2025-08-27 [1] CRAN (R 4.5.0)
+ glue             1.8.0      2024-09-30 [1] CRAN (R 4.4.1)
+ gtable           0.3.6      2024-10-25 [1] CRAN (R 4.4.1)
+ haven            2.5.5      2025-05-30 [1] CRAN (R 4.5.0)
+ hms              1.1.3      2023-03-21 [1] CRAN (R 4.4.0)
+ htmltools        0.5.8.1    2024-04-04 [1] CRAN (R 4.4.0)
+ htmlwidgets      1.6.4      2023-12-06 [1] CRAN (R 4.4.0)
+ httr2            1.2.1      2025-07-22 [1] CRAN (R 4.5.0)
+ insight        * 1.4.2      2025-09-02 [1] CRAN (R 4.5.0)
+ jsonlite         2.0.0      2025-03-27 [1] CRAN (R 4.5.0)
+ knitr            1.50       2025-03-16 [1] CRAN (R 4.5.0)
+ labeling         0.4.3      2023-08-29 [1] CRAN (R 4.4.0)
+ labelled         2.15.0     2025-09-16 [1] CRAN (R 4.5.0)
+ lattice          0.22-7     2025-04-02 [1] CRAN (R 4.5.0)
+ lifecycle        1.0.4      2023-11-07 [1] CRAN (R 4.4.0)
+ lubridate      * 1.9.4      2024-12-08 [1] CRAN (R 4.4.1)
+ magrittr         2.0.4      2025-09-12 [1] CRAN (R 4.5.0)
+ MASS             7.3-65     2025-02-28 [2] CRAN (R 4.5.1)
+ Matrix           1.7-3      2025-03-11 [2] CRAN (R 4.5.1)
+ matrixStats      1.5.0      2025-01-07 [1] CRAN (R 4.4.1)
+ modelbased     * 0.13.0     2025-08-30 [1] CRAN (R 4.5.0)
+ mosaicCore       0.9.5      2025-07-30 [1] CRAN (R 4.5.0)
+ multcomp         1.4-28     2025-01-29 [1] CRAN (R 4.4.1)
+ mvtnorm          1.3-3      2025-01-10 [1] CRAN (R 4.5.0)
+ parameters     * 0.28.2     2025-09-10 [1] CRAN (R 4.5.0)
+ performance    * 0.15.1     2025-08-30 [1] CRAN (R 4.5.0)
+ pillar           1.11.1     2025-09-17 [1] CRAN (R 4.5.0)
+ pkgconfig        2.0.3      2019-09-22 [1] CRAN (R 4.4.0)
+ plyr             1.8.9      2023-10-02 [1] CRAN (R 4.4.0)
+ posterior      * 1.6.1      2025-02-27 [1] CRAN (R 4.5.0)
+ processx         3.8.6      2025-02-21 [1] CRAN (R 4.4.1)
+ ps               1.9.1      2025-04-12 [1] CRAN (R 4.5.0)
+ purrr          * 1.1.0      2025-07-10 [1] CRAN (R 4.5.0)
+ R6               2.6.1      2025-02-15 [1] CRAN (R 4.4.1)
+ rappdirs         0.3.3      2021-01-31 [1] CRAN (R 4.4.0)
+ RColorBrewer     1.1-3      2022-04-03 [1] CRAN (R 4.4.0)
+ Rcpp             1.1.0      2025-07-02 [1] CRAN (R 4.5.0)
+ readr          * 2.1.5      2024-01-10 [1] CRAN (R 4.4.0)
+ report         * 0.6.1      2025-02-07 [1] CRAN (R 4.4.1)
+ reshape2         1.4.4      2020-04-09 [1] CRAN (R 4.4.0)
+ rlang            1.1.6      2025-04-11 [1] CRAN (R 4.5.0)
+ rmarkdown        2.30       2025-09-28 [1] CRAN (R 4.5.0)
+ rstudioapi       0.17.1     2024-10-22 [1] CRAN (R 4.4.1)
+ S7               0.2.0      2024-11-07 [1] CRAN (R 4.5.0)
+ sandwich         3.1-1      2024-09-15 [1] CRAN (R 4.4.1)
+ scales         * 1.4.0      2025-04-24 [1] CRAN (R 4.5.0)
+ see            * 0.12.0     2025-09-14 [1] CRAN (R 4.5.0)
+ sessioninfo      1.2.3      2025-02-05 [1] CRAN (R 4.4.1)
+ stringi          1.8.7      2025-03-27 [1] CRAN (R 4.5.0)
+ stringr        * 1.5.2      2025-09-08 [1] CRAN (R 4.5.0)
+ survival         3.8-3      2024-12-17 [2] CRAN (R 4.5.1)
+ tensorA          0.36.2.1   2023-12-13 [1] CRAN (R 4.4.0)
+ TH.data          1.1-4      2025-09-02 [1] CRAN (R 4.5.0)
+ tibble         * 3.3.0      2025-06-08 [1] CRAN (R 4.5.0)
+ tidyr          * 1.3.1      2024-01-24 [1] CRAN (R 4.4.0)
+ tidyselect       1.2.1      2024-03-11 [1] CRAN (R 4.4.0)
+ tidyverse      * 2.0.0      2023-02-22 [1] CRAN (R 4.5.0)
+ timechange       0.3.0      2024-01-18 [1] CRAN (R 4.4.0)
+ tzdb             0.5.0      2025-03-15 [1] CRAN (R 4.4.1)
+ utf8             1.2.6      2025-06-08 [1] CRAN (R 4.5.0)
+ vctrs            0.6.5      2023-12-01 [1] CRAN (R 4.4.0)
+ withr            3.0.2      2024-10-28 [1] CRAN (R 4.4.1)
+ xfun             0.53       2025-08-19 [1] CRAN (R 4.5.0)
+ xtable           1.8-4      2019-04-21 [1] CRAN (R 4.4.0)
+ yaml             2.3.10     2024-07-26 [1] CRAN (R 4.4.0)
+ zoo              1.8-14     2025-04-10 [1] CRAN (R 4.5.0)
+
+ [1] /Users/marcoe02/.Rlib
+ [2] /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/library
+ * ── Packages attached to the search path.
+
+──────────────────────────────────────────────────────────────────────────────</code></pre>
 </div>
 </div>
 </section>
