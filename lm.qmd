@@ -1,0 +1,147 @@
+---
+title: "lm"
+format: html
+---
+
+```{r}
+#| output: false
+library(tidyverse)
+library(easystats)
+library(ggformula)
+library(simDAG)
+library(cmdstanr)
+library(posterior)
+library(bayesplot)
+
+
+options(mc.cores = parallel::detectCores())
+register_knitr_engine(override = TRUE)
+theme_set(theme_bw())
+set.seed(666)
+```
+
+## Scientific/generative model
+
+We are interested in the relationship between a continuous outcome variable $Y$ and a continuous predictor variable $X$. We assume that $Y$ is linearly related to $X$ with some normally distributed error term.
+
+$$
+\begin{align}
+X & \sim \text{Normal}(\mu_X, \sigma_X) \\
+Y & = \beta_0 + \beta_1 X + \epsilon \\ 
+\epsilon & \sim \text{Normal}(0, \sigma_Y)
+\end{align}
+$$
+
+Where:
+
+-   $\mu_X$ and $\sigma_X$ are the mean and standard deviation of the predictor variable $X$.
+-   $\beta_0$ is the intercept of the linear relationship.
+-   $\beta_1$ is the slope of the linear relationship.
+-   $\sigma_Y$ is the standard deviation of the error term $\epsilon$.
+
+## Scientific and statistical model
+
+```{dot}
+digraph {
+  rankdir=TB;
+  node [shape=circle];
+  mu_X [label="μ_X", style=filled, fillcolor=gray]
+  sigma_X [label="σ_X", style=filled, fillcolor=gray]
+  beta_0 [label="β_0", style=filled, fillcolor=gray
+]
+  beta_1 [label="β_1", style=filled, fillcolor=gray]
+  sigma_Y [label="σ_Y", style=filled, fillcolor=gray]
+  X [label="X"]
+  epsilon [label="ε"]
+  Y [label="Y"]
+  mu_X -> X;
+  sigma_X -> X;
+  beta_0 -> Y;
+  beta_1 -> Y;
+  X -> Y;
+  epsilon -> Y;
+  sigma_Y -> epsilon;
+}
+```
+
+
+## Simulate data from the scientific model
+
+```{r}
+mu_X <- 5
+sigma_X <- 2
+beta_0 <- 10
+beta_1 <- 3
+sigma_Y <- 1
+N <- 1000  # Number of observations
+
+X <- rnorm(N, mean = mu_X, sd = sigma_X)
+epsilon <- rnorm(N, mean = 0, sd = sigma_Y)
+Y <- beta_0 + beta_1 * X + epsilon
+data <- tibble(X = X, Y = Y)
+```
+
+## Fit linear regression model to simulated data using Stan
+
+```{stan}
+#| output.var: lm_model
+
+data {
+  int<lower=1> N;         // Number of observations
+  vector[N] X;            // Predictor variable
+  vector[N] Y;            // Outcome variable
+}
+
+parameters {
+  real beta_0;            // Intercept
+  real beta_1;            // Slope
+  real<lower=0> sigma_Y;  // Standard deviation of the error term
+}
+
+model {
+  // Likelihood
+  Y ~ normal(beta_0 + beta_1 * X, sigma_Y);
+  
+  // Priors
+  beta_0 ~ normal(0, 10);        // Prior for intercept
+  beta_1 ~ normal(0, 10);        // Prior for slope
+  sigma_Y ~ normal(0, 10);       // Prior for standard deviation
+}
+```
+
+```{r}
+# Prepare data for Stan
+stan_data <- list(
+  N = N,
+  X = X,
+  Y = Y
+)
+
+# Compile & fit the model
+lm_fit <- lm_model$sample(stan_data)
+
+# Print results
+lm_fit$summary()
+```
+
+## Visualize results
+
+```{r}
+# Extract posterior samples
+posterior_samples <- lm_fit$draws()
+posterior_df <- as_draws_df(posterior_samples)
+
+# Plot posterior distributions of parameters
+mcmc_areas(
+  posterior_samples,
+  pars = c("beta_0", "beta_1", "sigma_Y"),
+  prob = 0.8
+)
+
+# Scatter plot of data with regression line
+gf_point(Y ~ X, data = data, alpha = 0.3) %>%
+  gf_lm(Y ~ X, data = data, color = "blue", size = 1.5) +
+  labs(title = "Scatter plot of Y vs X with regression line",
+       x = "Predictor (X)",
+       y = "Outcome (Y)")
+```

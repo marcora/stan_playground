@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -61,14 +61,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="cmdstanr_files/libs/clipboard/clipboard.min.js"></script>
 <script src="cmdstanr_files/libs/quarto-html/quarto.js" type="module"></script>
 <script src="cmdstanr_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="cmdstanr_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="cmdstanr_files/libs/quarto-html/popper.min.js"></script>
 <script src="cmdstanr_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="cmdstanr_files/libs/quarto-html/anchor.min.js"></script>
 <link href="cmdstanr_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="cmdstanr_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="cmdstanr_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="cmdstanr_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="cmdstanr_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="cmdstanr_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="cmdstanr_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -84,7 +85,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -144,7 +145,7 @@ window.Quarto = {
 <section id="setup-environment" class="level2">
 <h2 class="anchored" data-anchor-id="setup-environment">Setup environment</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggformula)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cmdstanr)</span>
@@ -157,7 +158,7 @@ window.Quarto = {
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">666</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">666</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="coin-flip" class="level2">
@@ -215,7 +216,7 @@ h &amp; \sim \text{Bern}(\theta) \\
 <section id="bernoulli-model" class="level3">
 <h3 class="anchored" data-anchor-id="bernoulli-model">Bernoulli model</h3>
 <div class="cell" data-output.var="coinflip">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode stan code-with-copy"><code class="sourceCode stan"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode stan code-with-copy"><code class="sourceCode stan"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> {</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>&gt; N;</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">array</span>[N] <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>, <span class="kw">upper</span>=<span class="dv">1</span>&gt; y;</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>}</span>
@@ -226,10 +227,10 @@ h &amp; \sim \text{Bern}(\theta) \\
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">model</span> {</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  y ~ bernoulli(theta);</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sim data</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sim data</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(N, <span class="dv">1</span>, <span class="fl">0.8</span>)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -240,9 +241,9 @@ h &amp; \sim \text{Bern}(\theta) \\
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># compile &amp; fit the model</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> coinflip<span class="sc">$</span><span class="fu">sample</span>(dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> coinflip<span class="sc">$</span><span class="fu">sample</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Running MCMC with 4 parallel chains...
+<pre><code>Running MCMC with 4 chains, at most 24 in parallel...
 
 Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
@@ -339,24 +340,24 @@ Chain 4 finished in 0.0 seconds.
 
 All 4 chains finished successfully.
 Mean chain execution time: 0.0 seconds.
-Total execution time: 0.6 seconds.</code></pre>
+Total execution time: 0.2 seconds.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print results</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>fit<span class="sc">$</span><span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print results</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>fit<span class="sc">$</span><span class="fu">summary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
 <col style="width: 8%">
-<col style="width: 11%">
-<col style="width: 11%">
+<col style="width: 8%">
 <col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 8%">
+<col style="width: 10%">
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 10%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -375,27 +376,27 @@ Total execution time: 0.6 seconds.</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">lp__</td>
-<td style="text-align: right;">-56.1359170</td>
-<td style="text-align: right;">-55.8816280</td>
-<td style="text-align: right;">0.6720426</td>
-<td style="text-align: right;">0.3127293</td>
-<td style="text-align: right;">-57.5012476</td>
-<td style="text-align: right;">-55.6524094</td>
-<td style="text-align: right;">1.001625</td>
-<td style="text-align: right;">2097.652</td>
-<td style="text-align: right;">2721.537</td>
+<td style="text-align: right;">-56.1259</td>
+<td style="text-align: right;">-55.8627</td>
+<td style="text-align: right;">0.6711</td>
+<td style="text-align: right;">0.2897</td>
+<td style="text-align: right;">-57.498</td>
+<td style="text-align: right;">-55.6529</td>
+<td style="text-align: right;">1.000</td>
+<td style="text-align: right;">1789</td>
+<td style="text-align: right;">2225</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">theta</td>
-<td style="text-align: right;">0.7656516</td>
-<td style="text-align: right;">0.7680229</td>
-<td style="text-align: right;">0.0408134</td>
-<td style="text-align: right;">0.0416681</td>
-<td style="text-align: right;">0.6966958</td>
-<td style="text-align: right;">0.8302193</td>
-<td style="text-align: right;">1.002433</td>
-<td style="text-align: right;">1610.585</td>
-<td style="text-align: right;">2272.859</td>
+<td style="text-align: right;">0.7648</td>
+<td style="text-align: right;">0.7672</td>
+<td style="text-align: right;">0.0407</td>
+<td style="text-align: right;">0.0401</td>
+<td style="text-align: right;">0.694</td>
+<td style="text-align: right;">0.8284</td>
+<td style="text-align: right;">1.003</td>
+<td style="text-align: right;">1462</td>
+<td style="text-align: right;">1698</td>
 </tr>
 </tbody>
 </table>
@@ -407,7 +408,7 @@ Total execution time: 0.6 seconds.</code></pre>
 <section id="simple-linear-regression-model-t-test" class="level2">
 <h2 class="anchored" data-anchor-id="simple-linear-regression-model-t-test">Simple linear regression model (t-test)</h2>
 <div class="cell" data-output.var="ttest">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode stan code-with-copy"><code class="sourceCode stan"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode stan code-with-copy"><code class="sourceCode stan"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> {</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">1</span>&gt; N;  <span class="co">// Number of observations</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[N] y;     <span class="co">// Outcome variable</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">vector</span>[N] x;     <span class="co">// Binary predictor (0 or 1)</span></span>
@@ -427,10 +428,10 @@ Total execution time: 0.6 seconds.</code></pre>
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  alpha ~ normal(<span class="dv">0</span>, <span class="dv">10</span>);  <span class="co">// Prior for intercept</span></span>
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  beta ~ normal(<span class="dv">0</span>, <span class="dv">10</span>);   <span class="co">// Prior for effect of x</span></span>
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  sigma ~ normal(<span class="dv">0</span>, <span class="dv">10</span>);  <span class="co">// Prior for standard deviation</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sim data</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sim data</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(N, <span class="dv">1</span>, <span class="fl">0.5</span>)  <span class="co"># Binary predictor (0 or 1)</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(N, <span class="dv">0</span>, <span class="dv">1</span>)  <span class="co"># y = 3 + 2*x + noise</span></span>
@@ -443,9 +444,9 @@ Total execution time: 0.6 seconds.</code></pre>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># compile &amp; fit the model</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> ttest<span class="sc">$</span><span class="fu">sample</span>(dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> ttest<span class="sc">$</span><span class="fu">sample</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Running MCMC with 4 parallel chains...
+<pre><code>Running MCMC with 4 chains, at most 24 in parallel...
 
 Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) 
 Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
@@ -535,31 +536,31 @@ Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling)
 Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
 Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 1 finished in 0.1 seconds.
-Chain 2 finished in 0.1 seconds.
-Chain 3 finished in 0.1 seconds.
-Chain 4 finished in 0.1 seconds.
+Chain 1 finished in 0.0 seconds.
+Chain 2 finished in 0.0 seconds.
+Chain 3 finished in 0.0 seconds.
+Chain 4 finished in 0.0 seconds.
 
 All 4 chains finished successfully.
-Mean chain execution time: 0.1 seconds.
-Total execution time: 0.3 seconds.</code></pre>
+Mean chain execution time: 0.0 seconds.
+Total execution time: 0.2 seconds.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print results</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>fit<span class="sc">$</span><span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print results</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>fit<span class="sc">$</span><span class="fu">summary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
-<col style="width: 8%">
+<col style="width: 11%">
 <col style="width: 10%">
 <col style="width: 10%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 9%">
 <col style="width: 8%">
 <col style="width: 8%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 7%">
+<col style="width: 11%">
+<col style="width: 11%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -578,51 +579,51 @@ Total execution time: 0.3 seconds.</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">lp__</td>
-<td style="text-align: right;">-64.572076</td>
-<td style="text-align: right;">-64.232133</td>
-<td style="text-align: right;">1.2791237</td>
-<td style="text-align: right;">1.0102170</td>
-<td style="text-align: right;">-67.155264</td>
-<td style="text-align: right;">-63.209664</td>
-<td style="text-align: right;">1.0015589</td>
-<td style="text-align: right;">1871.528</td>
-<td style="text-align: right;">2324.492</td>
+<td style="text-align: right;">-64.555</td>
+<td style="text-align: right;">-64.244</td>
+<td style="text-align: right;">1.2445</td>
+<td style="text-align: right;">1.0430</td>
+<td style="text-align: right;">-66.989</td>
+<td style="text-align: right;">-63.201</td>
+<td style="text-align: right;">1.000</td>
+<td style="text-align: right;">1863</td>
+<td style="text-align: right;">2390</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">alpha</td>
-<td style="text-align: right;">2.959578</td>
-<td style="text-align: right;">2.957263</td>
-<td style="text-align: right;">0.1554151</td>
-<td style="text-align: right;">0.1532773</td>
-<td style="text-align: right;">2.704111</td>
-<td style="text-align: right;">3.218422</td>
-<td style="text-align: right;">0.9997027</td>
-<td style="text-align: right;">2090.269</td>
-<td style="text-align: right;">2128.403</td>
+<td style="text-align: right;">2.961</td>
+<td style="text-align: right;">2.959</td>
+<td style="text-align: right;">0.1565</td>
+<td style="text-align: right;">0.1546</td>
+<td style="text-align: right;">2.701</td>
+<td style="text-align: right;">3.219</td>
+<td style="text-align: right;">1.001</td>
+<td style="text-align: right;">2250</td>
+<td style="text-align: right;">2436</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">beta</td>
-<td style="text-align: right;">2.016702</td>
-<td style="text-align: right;">2.020572</td>
-<td style="text-align: right;">0.2372309</td>
-<td style="text-align: right;">0.2338857</td>
-<td style="text-align: right;">1.630061</td>
-<td style="text-align: right;">2.406487</td>
-<td style="text-align: right;">0.9998295</td>
-<td style="text-align: right;">2058.066</td>
-<td style="text-align: right;">2429.570</td>
+<td style="text-align: right;">2.012</td>
+<td style="text-align: right;">2.007</td>
+<td style="text-align: right;">0.2378</td>
+<td style="text-align: right;">0.2323</td>
+<td style="text-align: right;">1.617</td>
+<td style="text-align: right;">2.404</td>
+<td style="text-align: right;">1.000</td>
+<td style="text-align: right;">2282</td>
+<td style="text-align: right;">2514</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">sigma</td>
-<td style="text-align: right;">1.167530</td>
-<td style="text-align: right;">1.162153</td>
-<td style="text-align: right;">0.0877268</td>
-<td style="text-align: right;">0.0850607</td>
-<td style="text-align: right;">1.035069</td>
-<td style="text-align: right;">1.324699</td>
-<td style="text-align: right;">1.0016537</td>
-<td style="text-align: right;">2421.767</td>
-<td style="text-align: right;">1867.244</td>
+<td style="text-align: right;">1.166</td>
+<td style="text-align: right;">1.161</td>
+<td style="text-align: right;">0.0842</td>
+<td style="text-align: right;">0.0839</td>
+<td style="text-align: right;">1.038</td>
+<td style="text-align: right;">1.314</td>
+<td style="text-align: right;">1.001</td>
+<td style="text-align: right;">2606</td>
+<td style="text-align: right;">2762</td>
 </tr>
 </tbody>
 </table>
@@ -684,13 +685,14 @@ Total execution time: 0.3 seconds.</code></pre>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
